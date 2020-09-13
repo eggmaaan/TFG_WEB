@@ -19,4 +19,13 @@ public interface ISaleRepository extends JpaRepository<Sale, Integer> {
 
     @Query(value = "SELECT * FROM Sale WHERE id_warehouse = :id and YEAR(SALE_DATE) = :year", nativeQuery = true)
     public List<Sale> findByWarehouseAndYear(@Param("id") int id, @Param("year") int year);
+
+    /*
+    WebService
+     */
+    @Query(value = "select A.ID_PRODUCT AS PRODUCTO,SUM(A.UNITS) UNIDADES_TOTALES,TRUNCATE(SUM(A.UNITS)*B.PRICE, 2) AS PRECIO_TOTAL," +
+            "           COUNT(*) TOTAL FROM SALE A, PRODUCTS B WHERE A.ID_PRODUCT = B.ID GROUP BY A.ID_PRODUCT", nativeQuery = true)
+    public List<String> totalSales( );
+
 }
+

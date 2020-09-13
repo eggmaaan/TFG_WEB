@@ -40,5 +40,10 @@ public class SaleService implements ISaleService{
         return saleRepository.findByWarehouseAndYear(id, year);
     }
 
+    @Override
+    public List<String> totalSales() {
+       return saleRepository.totalSales();
+    }
+
 
 }

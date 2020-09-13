@@ -12,4 +12,9 @@ public interface ISaleService {
     public List<Sale> findByYear(int year);
     public List<Sale> findByWarehouse(Warehouse warehouse);
     public List<Sale> findByWarehouseAndYear(int id, int year);
+
+    /*
+    WService
+     */
+    public List<String> totalSales( );
 }
