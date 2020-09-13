@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+</head>
+<body>
+<h1 th:text="${title}" th:align="center"></h1>
+
+<form th:action="@{/find}" method="post">
+    <select  class="custom-select" size="${warehousesBox.size()}" id="idWarehouse" name="idWarehouse">
+        <option selected></option>
+        <label th:each="warehouses : ${warehousesBox}">
+        <option th:value="${warehouses.getId()}"><label th:text="${warehouses.getName()}"/></option>
+        </label>
+    </select>
+    <div class="form-group">
+        <input type="text" class="form-control"  name="saleYear" size="4" maxlength="4">
+    </div>
+
+    <input type="submit" name="Buscar" id="Buscar" value="Buscar">
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">NOMBRE PRODUCTO</th>
+        <th scope="col">NOMBRE ALMACEN</th>
+        <th scope="col">FECHA DE VENTA</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="sale : ${list}">
+        <td><label th:text="${sale.product.getName()}"/></td>
+        <td><label th:text="${sale.warehouse.getName()}"/></td>
+        <td><label th:text="${#dates.format(sale.getSaleDate(), 'YYYY')}"/></td>
+    </tr>
+    </tbody>
+</table>
+<footer>Tenemos una cantidad de  <label th:text="${list.size()}"></label> ventas</footer>
+</body>
+</html>

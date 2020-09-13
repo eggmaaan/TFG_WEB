@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+</head>
+<body>
+<h1 th:text="${title}" th:align="center"></h1>
+
+<form th:action="@{/warehouse/updateStock}"  method="post">
+
+    <div class="form-group">
+        <label>Almacen</label>
+        <select  class="custom-select" id="idWarehouse" name="idWarehouse" th:readonly="yes">
+                <option selected th:value="${warehouseStock.warehouse.getId()}"><label th:text="${warehouseStock.warehouse.getName()}"/></option>
+        </select>
+        <small id="warehouseDescription" class="form-text text-muted">Almacen donde se encuentra</small>
+    </div>
+
+    <div class="form-group">
+    <label>Producto</label>
+    <select  class="custom-select" id="idProduct" name="idProduct" th:readonly="yes">
+            <option selected th:value="${warehouseStock.product.getId()}"><label th:text="${warehouseStock.product.getName()}"/></option>
+    </select>
+    <small id="productDescription" class="form-text text-muted">Producto a reestablecer</small>
+    </div>
+
+    <div class="form-group">
+        <label >Stock</label>
+        <input type="text" class="form-control"  name="stock">
+        <small id="StockDescription" class="form-text text-muted">Indique el Stock a reestablecer</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</body>
+</html>

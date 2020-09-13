@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+</head>
+<body>
+<h1 th:text="${title}" th:align="center"></h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">NOMBRE DEL ALMACEN</th>
+        <th scope="col">NOMBRE DEL PRODUCTO</th>
+        <th scope="col">STOCK</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="warehouseStock : ${list}">
+
+        <td><label th:text="${warehouseStock.warehouse.getName()}"/></td>
+        <td><label th:text="${warehouseStock.product.getName()}"/></td>
+        <td><label th:text="${warehouseStock.getStock()}"/></td>
+        <div th:if="${warehouseStock.getStock()} > 0">
+            <td><a href="saleForm.html" target="_blank" th:href="@{'/customer/saleForm/'+ ${warehouseStock.getId()}}"> Pulsa aqui para comprar</a></td>
+        </div>
+        <div th:if="${warehouseStock.getStock()} == 0">
+            <td></td>
+        </div>
+    </tr>
+       Tenemos una cantidad de  <label th:text="${list.size()}"></label> productos en el almacen
+    </tbody>
+</table>
+</body>
+</html>

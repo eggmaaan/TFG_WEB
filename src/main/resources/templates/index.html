@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+</head>
+<body>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col" th:text="${title}"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td><a href="/listWarehouses">Almacenes</a></td>
+    </tr>
+    <tr>
+        <th scope="row">2</th>
+        <td><a href="/listProducts">Productos</a></td>
+    </tr>
+    <tr>
+        <th scope="row">3</th>
+        <td><a href="/listSales">Ventas</a></td>
+    </tr>
+    <tr>
+        <th scope="row">4</th>
+        <td><a href="/customer/listWarehouses">Area Cliente</a></td>
+    </tr>
+    <tr>
+        <th scope="row">5</th>
+        <td><a href="/warehouse/index">Area Interna</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
