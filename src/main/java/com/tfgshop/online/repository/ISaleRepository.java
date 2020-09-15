@@ -2,7 +2,7 @@ package com.tfgshop.online.repository;
 
 import com.tfgshop.online.entities.Sale;
 import com.tfgshop.online.entities.Warehouse;
-import com.tfgshop.online.entities.WarehouseStock;
+import com.tfgshop.online.entities.webService.GlobalSale;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,10 +22,25 @@ public interface ISaleRepository extends JpaRepository<Sale, Integer> {
 
     /*
     WebService
+    Ventas totales (unidades de productos y €)
      */
-    @Query(value = "select A.ID_PRODUCT AS PRODUCTO,SUM(A.UNITS) UNIDADES_TOTALES,TRUNCATE(SUM(A.UNITS)*B.PRICE, 2) AS PRECIO_TOTAL," +
-            "           COUNT(*) TOTAL FROM SALE A, PRODUCTS B WHERE A.ID_PRODUCT = B.ID GROUP BY A.ID_PRODUCT", nativeQuery = true)
-    public List<String> totalSales( );
+    @Query(value = "SELECT B.NAME AS PRODUCTO,SUM(UNITS) UNIDADES, TRUNCATE(SUM(UNITS)*B.PRICE,2) BENEFICIOS " +
+            "FROM SALE A, PRODUCTS B WHERE A.ID_PRODUCT = B.ID GROUP BY ID_PRODUCT", nativeQuery = true)
+    public List<String> totalSales();
+
+    @Query(value = "SELECT C.NAME ALMACEN, SUM(UNITS) UNIDADES, TRUNCATE(SUM(UNITS)*B.PRICE,2) BENEFICIOS " +
+            "FROM SALE A, PRODUCTS B, WAREHOUSE C WHERE A.ID_WAREHOUSE = C.ID AND B.ID = A.ID_PRODUCT GROUP BY ID_WAREHOUSE ", nativeQuery = true)
+    public List<String> salesByWarehouse();
+
+    @Query(value = "SELECT YEAR(SALE_DATE) AS YEAR, SUM(UNITS) AS UNIDADES, TRUNCATE(SUM(UNITS)*B.PRICE,2) AS BENEFICIOS " +
+            "FROM SALE A, PRODUCTS B WHERE A.ID_PRODUCT = B.ID GROUP BY YEAR(SALE_DATE)", nativeQuery = true)
+    public List<String> salesByYear();
+
+    @Query(value = "SELECT B.NAME PRODUCTO, SUM(UNITS) UNIDADES, TRUNCATE(SUM(UNITS)*B.PRICE,2) BENEFICIOS " +
+            "FROM SALE A, PRODUCTS B WHERE A.ID_PRODUCT = B.ID GROUP BY A.ID_PRODUCT ORDER BY UNIDADES DESC limit 10", nativeQuery = true)
+    public List<String> salesByTopProducts();
+
+
 
 }
 

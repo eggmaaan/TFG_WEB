@@ -2,7 +2,7 @@ package com.tfgshop.online.service;
 
 import com.tfgshop.online.entities.Sale;
 import com.tfgshop.online.entities.Warehouse;
-import org.springframework.data.repository.query.Param;
+import com.tfgshop.online.entities.webService.GlobalSale;
 
 import java.util.List;
 
@@ -16,5 +16,6 @@ public interface ISaleService {
     /*
     WService
      */
-    public List<String> totalSales( );
+    public List<GlobalSale> allMethodsWS(String wsMethod);
+
 }
